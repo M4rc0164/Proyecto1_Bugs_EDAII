@@ -12,12 +12,12 @@ Programa orientado a la administración, ordenamiento y recuperación de reporte
 
 
 
-## Restricciones
+### Restricciones
 - **Persistencia en memoria:** No se emplean archivos en disco, bases de datos, excepciones ni hilos.
 - **Implementación manual:** Algoritmos de ordenamiento interno y búsqueda programados manualmente.
 - **Carga inicial:** Población automática de al menos 200 reportes antes de la interacción del usuario.
 
-## Estructura del Proyecto
+### Estructura del Proyecto
 - `Reporte/`: Código fuente en LaTeX (`.tex`) y reporte técnico compilado (`.pdf`).
 - `CodigoFuente/src/`:
   - `modelo/`: Entidad `Bug.java` con función Hash.
