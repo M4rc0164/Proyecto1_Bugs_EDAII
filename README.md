@@ -2,10 +2,11 @@
 ### Estructuras de Datos y Algoritmos II. FI UNAM
 
 ### Equipo 1.
-Integrantes: 
--Benavides Cantero Sian
--González Ayax 
--Rosas Flores Marco Saúl
+
+**Integrantes:**
+- Benavides Cantero Sian
+- González Ayax 
+- Rosas Flores Marco Saúl
 
 Programa orientado a la administración, ordenamiento y recuperación de reportes de bugs en memoria principal.
 
