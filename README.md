@@ -5,7 +5,7 @@
 
 **Integrantes:**
 - Benavides Cantero Sian
-- González Ayax 
+- González Sánchez Ayax R. 
 - Rosas Flores Marco Saúl
 
 Programa orientado a la administración, ordenamiento y recuperación de reportes de bugs en memoria principal.
