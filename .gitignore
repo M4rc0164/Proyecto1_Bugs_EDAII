@@ -1,0 +1,38 @@
+# ==========================================
+# 1. Archivos compilados de Java (binarios)
+# ==========================================
+*.class
+*.jar
+*.war
+bin/
+build/
+out/
+
+# ==========================================
+# 2. Archivos temporales de Editores e IDEs
+# ==========================================
+.vscode/
+.idea/
+*.iml
+nbproject/private/
+nbbuild/
+dist/
+
+# ==========================================
+# 3. Archivos del Sistema Operativo
+# ==========================================
+.DS_Store
+Thumbs.db
+
+# ==========================================
+# 4. Archivos auxiliares de LaTeX
+# ==========================================
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
