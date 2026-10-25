@@ -30,7 +30,6 @@ public class Bug {
 
     public Bug(String titulo, int prioridad, int nivelSeguridad, String equipoEncargado, String categoria,
             String estado, String fechaReporte) {
-        this.id = this.generarID();
         this.titulo = titulo;
         this.prioridad = prioridad;
         this.nivelSeguridad = nivelSeguridad;
@@ -38,11 +37,11 @@ public class Bug {
         this.categoria = categoria;
         this.estado = estado;
         this.fechaReporte = fechaReporte;
+        this.id = this.generarID();
     }
 
     public Bug(String id, String titulo, int prioridad, int nivelSeguridad, String equipoEncargado, String categoria,
             String estado, String fechaReporte) {
-        this.id = id;
         this.titulo = titulo;
         this.prioridad = prioridad;
         this.nivelSeguridad = nivelSeguridad;
@@ -50,6 +49,7 @@ public class Bug {
         this.categoria = categoria;
         this.estado = estado;
         this.fechaReporte = fechaReporte;
+        this.id = id;
     }
 
     public int condensacion(String titulo, String fechaReporte) {
