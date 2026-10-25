@@ -10,7 +10,7 @@ public class AlmacenBugs {
     private List<List<Bug>> tablaHash;
     private int capacidadHash;
     private int totalBugs;
-
+    private int desplazamientoBits;
     private static final int capacidadEstandar = 1024;
 
     /*
@@ -23,6 +23,7 @@ public class AlmacenBugs {
         this.listaBugs = new ArrayList<>();
         this.tablaHash = new ArrayList<>();
         this.capacidadHash = capacidadEstandar;
+        this.desplazamientoBits = 22;
         for (int i = 0; i < capacidadEstandar; i++) {
             this.tablaHash.add(new LinkedList<>());
         }
@@ -33,25 +34,65 @@ public class AlmacenBugs {
         this.listaBugs = new ArrayList<>();
         this.tablaHash = new ArrayList<>();
         this.capacidadHash = capacidad;
+        desplazamientoBits = 32 - (31 - Integer.numberOfLeadingZeros(capacidad));
         for (int i = 0; i < capacidad; i++) {
             this.tablaHash.add(new LinkedList<>());
         }
         this.totalBugs = 0;
     }
 
-    private static int funcionHash(String idCompleto) {
-        String id = idCompleto.substring(4); // Se obtiene la parte numérica del id
+    private int funcionHash(String idCompleto) {
+        String id = idCompleto.replace("BUG-", ""); // Se obtiene la parte numérica del id
         int k = Integer.parseInt(id);
         int producto = k * inversoAurea;
-        return (producto >>> 22);
+        return (producto >>> this.getDesplazamientoBits());
     }
 
     public boolean agregarBug(Bug bug) {
+        if (bug == null) {
+            return false;
+        }
         int indice = funcionHash(bug.getId());
+        for (Bug b : this.getTablaHash().get(indice)) {
+            if (b.getId().equals(bug.getId())) {
+                return false;
+            }
+        }
         this.getListaBugs().add(bug);
         this.getTablaHash().get(indice).add(bug);
-        this.setTotalBugs(this.getTotalBugs()+1);
+        this.setTotalBugs(this.getTotalBugs() + 1);
         return true;
+    }
+
+    public boolean eliminarBugId(String id) {
+        Bug bugAEliminar = null;
+        int indice = this.funcionHash(id);
+        for (Bug bug : this.getTablaHash().get(indice)) {
+            if (bug.getId().equals(id)) {
+                bugAEliminar = bug;
+                break;
+            }
+        }
+        if (bugAEliminar == null) {
+            return false;
+        }
+        this.getTablaHash().get(indice).remove(bugAEliminar);
+        this.getListaBugs().remove(bugAEliminar);
+        this.setTotalBugs(this.getTotalBugs() - 1);
+        return true;
+    }
+
+    public Bug buscarId(String id){
+        if (id == null) {
+            return null;
+        }
+        int indice = funcionHash(id);
+        for (Bug bug : this.getTablaHash().get(indice)) {
+            if (bug.getId().equals(id)) {
+                return bug;
+            }
+        }
+        return null;
     }
 
     public List<Bug> getListaBugs() {
@@ -76,6 +117,10 @@ public class AlmacenBugs {
 
     public int getCapacidadEstandar() {
         return capacidadEstandar;
+    }
+
+    public int getDesplazamientoBits() {
+        return desplazamientoBits;
     }
 
 }
