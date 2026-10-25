@@ -8,16 +8,16 @@ import java.util.List;
 
 public class Ordenar {
 
-     // MÉTODOS COUNTING SORT MÉTODOS COUNTING SORT MÉTODOS COUNTING SORT
+     // MÉTODOS COUNTING SORT MÉTODOS COUNTING SORT MÉTODOS COUNTING SORT ᕙ( •̀ ᗜ •́ )ᕗ
     public static void showByPrioridad(List<Bug>list){// tipo 1 por prioridad
         countingSort(list, GeneradorBugs.prioridadMaxima, 1);
     }
 
     public static void showByNivelDeSeguridad(List<Bug>list){// tipo 2 por prioridad
         countingSort(list, GeneradorBugs.nivelSeguridadMax, 2);
-    }
+    } 
 
-    // funcionaría bien se se añadieran atributos extras a la clase Bug que fueran de tipo int
+    // funcionaría bien se se añadieran atributos extras a la clase Bug que fueran de tipo int ( ˶°ㅁ°) !!
     private static void countingSort(List<Bug>list, int max, int tipo){
         if (list == null || list.isEmpty()) return;
         int[] cuenta= new int[max+1];

@@ -13,7 +13,7 @@ public class GeneradorBugs {
     public static final int nivelSeguridadMax=5;
 
     static final LocalDate fechaMax = LocalDate.now(); // la máxima en este caso es hoy mismo
-    static final int fechaMin = 2000; // lo máximo son hace 2000 días 
+    static final int fechaMin = 2000; // lo máximo son hace 2000 días ⚞^. .^⚟
     
     public static final Random rand = new Random();
 
