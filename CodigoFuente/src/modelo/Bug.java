@@ -55,6 +55,9 @@ public class Bug {
         String id = Integer.toString(k);
         return ("BUG-" + id);
     }
+    public String toString(){
+        
+    }
 
     public String getId() {
         return id;
