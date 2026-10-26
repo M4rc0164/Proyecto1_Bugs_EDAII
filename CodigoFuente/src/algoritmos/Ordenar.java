@@ -65,6 +65,10 @@ public class Ordenar {
         prequickSort(list, 1);
         
     }
+    public static void orderByTitulo(List<Bug>list){ // si ordenada la lista
+        if (list == null || list.isEmpty()) return;
+        quickSort(list, 0, list.size() - 1, 1);
+    }
     public static void showByEquipoEncargado(List<Bug>list){
         prequickSort(list, 2);
     }
@@ -77,6 +81,7 @@ public class Ordenar {
         if (list == null || list.isEmpty()) return;
         List<Bug> copia= new ArrayList<>(list);
         quickSort(copia, 0, copia.size() - 1, tipo);
+        
         //imprimir copia en ciclo for
     }
     private static void quickSort(List<Bug>list,int inicio, int fin, int tipo){
