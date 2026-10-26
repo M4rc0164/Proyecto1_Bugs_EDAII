@@ -54,9 +54,6 @@ public class Bug {
         String id = Integer.toString(k);
         return ("BUG-" + id);
     }
-    public String toString(){
-        
-    }
 
     @Override
     public String toString() {
