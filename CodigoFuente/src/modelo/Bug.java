@@ -16,7 +16,6 @@ public class Bug {
      */
     private static final long MODULO = 1000000007L;
 
-
     public Bug(String titulo, int prioridad, int nivelSeguridad, String equipoEncargado, String categoria,
             String estado, String fechaReporte) {
         this.id = this.generarID();
@@ -54,6 +53,54 @@ public class Bug {
         int k = this.condensacion(this.getTitulo(), this.getFechaReporte());
         String id = Integer.toString(k);
         return ("BUG-" + id);
+    }
+
+    @Override
+    public String toString() {
+        String textoTitulo = this.getTitulo();
+        if (textoTitulo == null) {
+            textoTitulo = "";
+        }
+        String lineaTitulo1;
+        String lineaTitulo2 = "";
+
+        if (textoTitulo.length() <= 28) {
+            lineaTitulo1 = textoTitulo;
+        } else {
+            lineaTitulo1 = textoTitulo.substring(0, 28);
+            String sobrante = textoTitulo.substring(28);
+            if (sobrante.length() > 28) {
+                lineaTitulo2 = sobrante.substring(0, 25) + "...";
+            } else {
+                lineaTitulo2 = sobrante;
+            }
+        }
+
+        String renglon1 = String.format("| %-10s | %-28s | P:%-2d | Seg:%-2d | %-20s | %-12s | %-11s | %-10s |",
+                this.getId(),
+                lineaTitulo1,
+                this.getPrioridad(),
+                this.getNivelSeguridad(),
+                this.getEquipoEncargado(),
+                this.getCategoria(),
+                this.getEstado(),
+                this.getFechaReporte());
+
+        if (lineaTitulo2.isEmpty()) {
+            return renglon1;
+        }
+
+        String renglon2 = String.format("| %-10s | %-28s | %-4s | %-6s | %-20s | %-12s | %-11s | %-10s |",
+                "",
+                lineaTitulo2,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "");
+
+        return renglon1 + "\n" + renglon2;
     }
 
     public String getId() {
