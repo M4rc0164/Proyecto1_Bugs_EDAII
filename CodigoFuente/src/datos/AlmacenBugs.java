@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import modelo.*;
 
+
 public class AlmacenBugs {
     private List<Bug> listaBugs;
     private List<List<Bug>> tablaHash;
@@ -93,6 +94,12 @@ public class AlmacenBugs {
             }
         }
         return null;
+    }
+
+    public void poblarInicial(int cantidad){
+        while (this.getTotalBugs() < cantidad) {
+            this.agregarBug(GeneradorBugs.generarBug());
+        }
     }
 
     public List<Bug> getListaBugs() {
