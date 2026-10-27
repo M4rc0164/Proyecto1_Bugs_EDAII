@@ -33,7 +33,9 @@ public class Ordenar {
             ordenado[cuenta[key]-1]=list.get(i);
             cuenta[key]--;
         }
-        // método para mostrar el bug
+        for(Bug i : ordenado){
+            System.out.println(i);
+        }
     }
     private static int selector(Bug bug, int tipo){
         if(tipo==1) return porPrioridad(bug);// tipo 1 por prioridad
@@ -82,7 +84,9 @@ public class Ordenar {
         List<Bug> copia= new ArrayList<>(list);
         quickSort(copia, 0, copia.size() - 1, tipo);
         
-        //imprimir copia en ciclo for
+        for(Bug i: copia){
+            System.out.println(i);
+        }
     }
     private static void quickSort(List<Bug>list,int inicio, int fin, int tipo){
         if(inicio<fin){
@@ -151,7 +155,9 @@ public class Ordenar {
         if (list == null || list.isEmpty()) return;
         List<Bug> copia = new ArrayList<>(list);
         mergeSort(copia, 0, copia.size()-1,tipo);
-        // imprimir en ciclo for la copia
+        for(Bug i : copia){
+            System.out.println(i);
+        }
     }
     private static void mergeSort(List<Bug> arr, int left, int right, int tipo) {
         if (left < right) {
