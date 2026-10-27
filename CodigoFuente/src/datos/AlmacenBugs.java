@@ -84,8 +84,8 @@ public class AlmacenBugs {
     }
 
     public Bug buscarId(String id){
-        if (id == null) {
-            return null;
+        if (id == null || !id.matches("BUG-\\d+")) {
+            return null; 
         }
         int indice = funcionHash(id);
         for (Bug bug : this.getTablaHash().get(indice)) {

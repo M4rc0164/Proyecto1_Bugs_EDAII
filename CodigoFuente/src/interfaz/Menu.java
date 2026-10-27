@@ -1,6 +1,8 @@
 package interfaz;
 
 import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
 
 import algoritmos.Busqueda;
 import algoritmos.TargetAux;
@@ -16,15 +18,15 @@ public class Menu {
     public static void main(String[] args) {
         AlmacenBugs almacenBugs;
         Scanner scan = new Scanner(System.in);
-        char tamPersonalizado;
+        boolean tamPersonalizado;
         int tamanio;
         System.out.println("========================================================");
         System.out.println("            SISTEMA DE ADMINISTRACION DE BUGS");
         System.out.println("========================================================");
         System.out.println();
         System.out.println("¿Desea personalizar el tamaño del almacen? (estandar 1024) (Y/N)");
-        tamPersonalizado = scan.nextLine().charAt(0);
-        if(tamPersonalizado == 'y' || tamPersonalizado == 'Y'){
+        tamPersonalizado = Read.confirmationReader();
+        if(tamPersonalizado){
             System.out.println("Ingrese el tamaño de almacen. ADVERTENCIA: debe ser potencia de dos");
             boolean esPotencia = false;
             do{
@@ -71,45 +73,166 @@ public class Menu {
         System.out.println();
         switch(seleccion) {
             case 1 -> {
-                String titulo;
-                int prioridad;
-                int seguridad;
-                String equipoEncargado;
-                String categoria;
-                String estado;
-                String fecha;
-                System.out.println("-----------------INGRESO DE UN NUEVO BUG-----------------");
-                System.out.println("- Escriba el titulo del bug:");
-                titulo = scan.nextLine();
-                System.out.println("- Escriba la prioridad del bug:");
-                System.out.println("\t1 -> Baja");
-                System.out.println("\t2 -> Media");
-                System.out.println("\t3 -> Alta");
-                do{
-                    prioridad = Read.intReader();
-                    if(prioridad < 1 || prioridad > 3)
-                        System.out.println("Error: Ingrese un valor dentro del rango admitido");
-                }while(prioridad < 1 || prioridad > 3);
-                System.out.println("- Escriba el nivel de seguridad del bug (1-5)");
-                do{
-                    seguridad = Read.intReader();
-                    if(seguridad < 1 || seguridad > 5)
-                        System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
-                }while(seguridad < 1 || seguridad > 5);
-                System.out.println("- Escriba el equipo encargado de su revision");
-                equipoEncargado = scan.nextLine();
-                System.out.println("- Escriba la categoria del bug");
-                categoria = scan.nextLine();
-                System.out.println("- Escriba el estado del bug:");
-                estado = scan.nextLine();
-                System.out.println("Ingresa la fecha de registro. Formato YYYY-MM-DD");
-                fecha = Read.dateReader();
-                almacenBugs.agregarBug(new Bug(titulo, prioridad, seguridad, equipoEncargado, categoria, estado, fecha));
-                System.out.println("               BUG INGRESADO EXITOSAMENTE");
+                if(almacenBugs.getTotalBugs() < almacenBugs.getCapacidadHash()){
+                    String titulo;
+                    int prioridad;
+                    int seguridad;
+                    String equipoEncargado;
+                    String categoria;
+                    String estado;
+                    String fecha;
+                    System.out.println("-----------------INGRESO DE UN NUEVO BUG-----------------");
+                    System.out.println("- Escriba el titulo del bug:");
+                    titulo = scan.nextLine();
+                    System.out.println("- Escriba la prioridad del bug:");
+                    System.out.println("\t1 -> Baja");
+                    System.out.println("\t2 -> Media");
+                    System.out.println("\t3 -> Alta");
+                    do{
+                        prioridad = Read.intReader();
+                        if(prioridad < 1 || prioridad > 3)
+                            System.out.println("Error: Ingrese un valor dentro del rango admitido");
+                    }while(prioridad < 1 || prioridad > 3);
+                    System.out.println("- Escriba el nivel de seguridad del bug (1-5)");
+                    do{
+                        seguridad = Read.intReader();
+                        if(seguridad < 1 || seguridad > 5)
+                            System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
+                    }while(seguridad < 1 || seguridad > 5);
+                    System.out.println("- Escriba el equipo encargado de su revision");
+                    equipoEncargado = scan.nextLine();
+                    System.out.println("- Escriba la categoria del bug");
+                    categoria = scan.nextLine();
+                    System.out.println("- Escriba el estado del bug:");
+                    estado = scan.nextLine();
+                    System.out.println("Ingresa la fecha de reporte. Formato YYYY-MM-DD");
+                    fecha = Read.dateReader();
+                    almacenBugs.agregarBug(new Bug(titulo, prioridad, seguridad, equipoEncargado, categoria, estado, fecha));
+                    System.out.println("               BUG INGRESADO EXITOSAMENTE");
+                } else{
+                    System.out.println("      |   Se alcanzo la capacidad maxima de bugs   |      ");
+                    System.out.println("          Elimina bugs para poder ingresar nuevos");
+                }
+                System.out.println();
             }
-        case 2 -> {
-            System.out.println("------------------ELIMINACION DE UN BUG------------------");
-        }
+            case 2 -> {
+                if(almacenBugs.getTotalBugs() > 0) {
+                    String id;
+                    boolean reingresarID = false;
+                    System.out.println("------------------ELIMINACION DE UN BUG------------------");
+                    do{
+                        reingresarID = false;
+                        System.out.println("Ingrese el ID del Bug a eliminar");
+                        id = scan.nextLine();
+                        if(almacenBugs.buscarId(id) != null){
+                            System.out.println(almacenBugs.buscarId(id));
+                            System.out.println("¿Confirma la eliminacion del bug? (Y/N)");
+                            if(Read.confirmationReader()){
+                                almacenBugs.eliminarBugId(id);
+                                System.out.println("               BUG ELIMINADO EXITOSAMENTE");
+                            }
+                            else{
+                                System.out.println("               CANCELACION DE BUG EXITOSA");
+                                System.out.println("¿Desea eliminar otro bug? (Y/N)");
+                                reingresarID = Read.confirmationReader();
+                            }
+                        }
+                        else{
+                            System.out.println("Error: El ID ingresado no coincide con ningun bug del almacen");
+                            System.out.println("¿Desea volver a ingresar el ID? (Y/N)");
+                            reingresarID = Read.confirmationReader();
+                        }
+                    } while(reingresarID);
+                } else {
+                    System.out.println("        |   El almacen se encuentra vacio   |      ");
+                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                }
+                System.out.println();
+            }
+            case 3 -> {
+                if(almacenBugs.getTotalBugs() > 0){
+                    int tipoBusqueda;
+                    System.out.println("-------------------- BUSQUEDA DE BUGS -------------------");
+                    System.out.println("\t1. Titulo");
+                    System.out.println("\t2. ID");
+                    System.out.println("\t3. Fecha de Reporte");
+                    System.out.println("\t4. Compuesto (Busqueda por multiples filtros)");
+                    System.out.println("\t5. Mostrar todo sin filtro");
+                    System.out.println("\t6. Volver al menu principal");
+                    System.out.println("Seleccione una opcion:");
+                    tipoBusqueda = Read.intReader();
+                    System.out.println();
+                    switch(tipoBusqueda) {
+                        case 1 -> {
+                            boolean reingresarID = false;
+                            Ordenar.orderByTitulo(almacenBugs.getListaBugs());
+                            String titulo;
+                            do{
+                                reingresarID = false;
+                                System.out.println("Ingrese el titulo del bug");
+                                titulo = scan.nextLine();
+                                List<Bug> bugs = new ArrayList<>(Busqueda.busquedaTitulo(titulo, almacenBugs.getListaBugs()));
+                                if(!bugs.isEmpty()){
+                                    System.out.println("- Coincidencias:");
+                                    for(int i = 0; i < bugs.size(); i++){
+                                        System.out.println(bugs.get(i));
+                                        System.out.println("----------------------------------------");
+                                    }
+                                } else {
+                                    System.out.println("Error: No hay coincidencias con el titulo ingresado");
+                                    System.out.println("¿Desea volver a ingresar el titulo? (Y/N)");
+                                    reingresarID = Read.confirmationReader();
+                                }
+                            }while(reingresarID);
+                            System.out.println("             Volviendo al menu de busqueda");
+                        }
+                        case 2 -> {
+                            boolean reingresarID = false;
+                            String id;
+                            do{
+                                reingresarID = false;
+                                System.out.println("Ingrese el ID del bug:");
+                                id = scan.nextLine();
+                                if(almacenBugs.buscarId(id) != null){
+                                    System.out.println("Informacion del bug:");
+                                    System.out.println(almacenBugs.buscarId(id));
+                                } else {
+                                    System.out.println("Error: El ID ingresado no coincide con ningun bug del almacen");
+                                    System.out.println("¿Desea volver a ingresar el ID? (Y/N)");
+                                    reingresarID = Read.confirmationReader();
+                                }
+                            }while(reingresarID);
+                            System.out.println("             Volviendo al menu de busqueda");
+                        }
+                        case 3 -> {
+                            boolean reingresarID = false;
+                            String fecha;
+                            do{
+                                reingresarID = false;
+                                System.out.println("Ingrese la fecha de busqueda");
+                                fecha = Read.dateReader();
+                                TargetAux target = new TargetAux();
+                                target.setFechaReporte(fecha);
+                                List<Bug> bugs = new ArrayList<>(Busqueda.busquedaCompuesta(target, almacenBugs.getListaBugs()));
+                                if(!bugs.isEmpty()){
+                                    System.out.println("- Coincidencias:");
+                                    for(int i = 0; i < bugs.size(); i++){
+                                        System.out.println(bugs.get(i));
+                                        System.out.println("----------------------------------------");
+                                    }
+                                } else {
+                                    System.out.println("Error: No hay coincidencias con la fecha ingresada");
+                                    System.out.println("¿Desea volver a ingresar la fecha? (Y/N)");
+                                    reingresarID = Read.confirmationReader();
+                                }
+                            }while(reingresarID);
+                        }
+                    }
+                } else {
+                    System.out.println("        |   El almacen se encuentra vacio   |      ");
+                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                }
+            }
         }
     } 
 }

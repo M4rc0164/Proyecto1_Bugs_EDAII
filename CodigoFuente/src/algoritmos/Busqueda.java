@@ -6,7 +6,7 @@ import modelo.Bug;
 
 public class Busqueda {
     //Compara los atributos buscados con cada objeto Bug de la lista del almacen
-    public List<Bug> busquedaCompuesta(TargetAux target, List<Bug> listaBugs){
+    public static List<Bug> busquedaCompuesta(TargetAux target, List<Bug> listaBugs){
         if (listaBugs == null || listaBugs.isEmpty() || target == null) {
             return new ArrayList<>(); // Lista vacía 
         }
@@ -21,7 +21,7 @@ public class Busqueda {
         return coincidencias;
     }
 
-    public List<Bug> busquedaTitulo(String titulo, List<Bug> listaBugs) {
+    public static List<Bug> busquedaTitulo(String titulo, List<Bug> listaBugs) {
         if (listaBugs == null || listaBugs.isEmpty() || titulo == null) {
             return new ArrayList<>(); // Lista vacía 
         }
@@ -42,7 +42,7 @@ public class Busqueda {
         return coincidencias;
     }
 
-    protected int lowerBound(String titulo, List<Bug> listaBugs) {
+    protected static int lowerBound(String titulo, List<Bug> listaBugs) {
         int l = 0, r = (int)listaBugs.size(); 
         while(l < r) {
             int mid = l + (r-l)/2;
@@ -54,7 +54,7 @@ public class Busqueda {
         return l;
     }
 
-    protected int upperBound(String titulo, List<Bug> listaBugs) {
+    protected static int upperBound(String titulo, List<Bug> listaBugs) {
         int l = 0, r = (int)listaBugs.size();
         while(l < r) {
             int mid = l + (r-l)/2;

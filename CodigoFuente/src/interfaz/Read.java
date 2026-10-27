@@ -61,4 +61,20 @@ public class Read {
         } while(!fechaV);
         return fecha;
     }
+
+    public static boolean confirmationReader() {
+        boolean isValid = false;
+        char c;
+        do{
+            c = scan.nextLine().charAt(0);
+            if(c == 'y' || c == 'Y' || c == 'n' || c == 'N')
+                isValid = true;
+            else 
+                System.out.println("Error: Ingrese un caracter valido");
+        } while(!isValid);
+        if(c == 'Y' || c == 'y')
+            return true;
+        else
+            return false;
+    }
 }
