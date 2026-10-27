@@ -21,7 +21,7 @@ public class AlmacenBugs {
     private static final int inversoAurea = 0x9E3779B9;
 
     public AlmacenBugs() {
-        this.listaBugs = new ArrayList<>();
+        this.listaBugs = new ArrayList<>(capacidadEstandar);
         this.tablaHash = new ArrayList<>();
         this.capacidadHash = capacidadEstandar;
         this.desplazamientoBits = 22;
@@ -32,7 +32,7 @@ public class AlmacenBugs {
     }
 
     public AlmacenBugs(int capacidad) {
-        this.listaBugs = new ArrayList<>();
+        this.listaBugs = new ArrayList<>(capacidad);
         this.tablaHash = new ArrayList<>();
         this.capacidadHash = capacidad;
         desplazamientoBits = 32 - (31 - Integer.numberOfLeadingZeros(capacidad));
