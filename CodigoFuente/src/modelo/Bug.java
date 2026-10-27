@@ -40,7 +40,7 @@ public class Bug {
         this.id = id;
     }
 
-    public int condensacion(String titulo, String fechaReporte) {
+    private int condensacion(String titulo, String fechaReporte) {
         String captura = titulo + " " + fechaReporte;
         long h = 0L; // Se usa long para evitar desbordamientos
         for (int i = 0; i < captura.length(); i++) {
