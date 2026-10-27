@@ -1,5 +1,7 @@
 package interfaz;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Read {
@@ -42,5 +44,21 @@ public class Read {
         }while(notApproved);
         return num;
         
+    }
+
+    public static String dateReader() {
+        boolean fechaV = false;
+        String fecha = "date";
+        do{
+            try {
+                fecha = scan.nextLine();
+                LocalDate.parse(fecha);
+                fechaV = true;
+            } catch(DateTimeParseException e) {
+                System.out.println("Error: Ingrese una fecha en el formato indicado");
+                fechaV = false;
+            }
+        } while(!fechaV);
+        return fecha;
     }
 }
