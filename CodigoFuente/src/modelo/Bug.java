@@ -64,19 +64,19 @@ public class Bug {
         String lineaTitulo1;
         String lineaTitulo2 = "";
 
-        if (textoTitulo.length() <= 28) {
+        if (textoTitulo.length() <= 32) {
             lineaTitulo1 = textoTitulo;
         } else {
-            lineaTitulo1 = textoTitulo.substring(0, 28);
-            String sobrante = textoTitulo.substring(28);
-            if (sobrante.length() > 28) {
-                lineaTitulo2 = sobrante.substring(0, 25) + "...";
+            lineaTitulo1 = textoTitulo.substring(0, 32);
+            String sobrante = textoTitulo.substring(32);
+            if (sobrante.length() > 32) {
+                lineaTitulo2 = sobrante.substring(0, 29) + "...";
             } else {
                 lineaTitulo2 = sobrante;
             }
         }
 
-        String renglon1 = String.format("| %-10s | %-32s | P:%-2d | Seg:%-2d | %-20s | %-12s | %-11s | %-10s |",
+        String renglon1 = String.format("| %-14s | %-32s | P:%-2d | Seg:%-2d | %-20s | %-12s | %-11s | %-10s |",
                 this.getId(),
                 lineaTitulo1,
                 this.getPrioridad(),
@@ -90,7 +90,7 @@ public class Bug {
             return renglon1;
         }
 
-        String renglon2 = String.format("| %-10s | %-32s | %-4s | %-6s | %-20s | %-12s | %-11s | %-10s |",
+        String renglon2 = String.format("| %-14s | %-32s | %-4s | %-6s | %-20s | %-12s | %-11s | %-10s |",
                 "",
                 lineaTitulo2,
                 "",
