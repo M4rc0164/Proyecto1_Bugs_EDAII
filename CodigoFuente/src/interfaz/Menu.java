@@ -226,6 +226,106 @@ public class Menu {
                                     reingresarID = Read.confirmationReader();
                                 }
                             }while(reingresarID);
+                            System.out.println("             Volviendo al menu de busqueda");
+                        }
+                        case 4 -> {
+                            boolean elegir = true;                            
+                            TargetAux target = new TargetAux();
+                            int criterio;
+                            int usados = 0;
+                            int prioridadUsado = 0;
+                            int seguridadUsado = 0;
+                            int equipoUsado = 0;
+                            int categoriaUsado = 0;
+                            int estadoUsado = 0;
+                            int fechaUsado = 0;
+                            do{
+                                if(prioridadUsado == 0)
+                                    System.out.println("\t1 -> Prioridad");
+                                if(seguridadUsado == 0)
+                                    System.out.println("\t2 -> Nivel de Seguridad");
+                                if(equipoUsado == 0) 
+                                    System.out.println("\t3 -> Equipo Encargado");
+                                if(categoriaUsado == 0)
+                                    System.out.println("\t4 -> Categoria");
+                                if(estadoUsado == 0)
+                                    System.out.println("\t5 -> Estado");
+                                if(fechaUsado == 0)
+                                    System.out.println("\t6 -> Fecha de reporte");
+                                System.out.println("\t7 -> Proceder con la busqueda");
+                                System.out.println("Seleccione los criterios de busqueda:");
+                                criterio = Read.intReader();
+                                switch (criterio) {
+                                    case 1:
+                                        if(prioridadUsado == 0) {
+                                            prioridadUsado ++;
+                                            usados ++;
+                                            System.out.println("Ingrese el nivel de prioridad buscado");
+                                            target.setPrioridad(Read.intReader());
+                                        }
+                                        break;
+                                    case 2: 
+                                        if(seguridadUsado == 0) {
+                                            seguridadUsado ++;
+                                            usados ++;
+                                            System.out.println("Ingrese el nivel de seguridad buscado");
+                                            target.setNivelSeguridad(Read.intReader());
+                                        }   
+                                        break;
+                                    case 3:
+                                        if(equipoUsado == 0) {
+                                            equipoUsado ++;
+                                            usados ++;
+                                            System.out.println("Ingrese el equipo buscado");
+                                            target.setEquipoEncargado(scan.nextLine());
+                                        }
+                                        break;
+                                    case 4:
+                                        if(categoriaUsado == 0) {
+                                            categoriaUsado ++;
+                                            usados ++;
+                                            System.out.println("Ingrese la categoria buscada");
+                                            target.setCategoria(scan.nextLine());
+                                        }
+                                        break;
+                                    case 5:
+                                        if(estadoUsado == 0) {
+                                            estadoUsado ++;
+                                            usados ++;
+                                            System.out.println("Ingrese el estado buscado");
+                                            target.setEstado(scan.nextLine());
+                                        }
+                                        break;
+                                    case 6:
+                                        if(fechaUsado == 0) {
+                                            fechaUsado ++;
+                                            usados ++;
+                                            System.out.println("Ingrese la fecha de reporte buscada");
+                                            target.setFechaReporte(Read.dateReader());
+                                        }
+                                        break;
+                                    case 7 :
+                                        if(usados > 0) {
+                                            elegir = false;
+                                            List<Bug> bugs = new ArrayList<>(Busqueda.busquedaCompuesta(target, almacenBugs.getListaBugs()));
+                                            if(!bugs.isEmpty()){
+                                                System.out.println("- Coincidencias:");
+                                                for(int i = 0; i < bugs.size(); i++){
+                                                    System.out.println(bugs.get(i));
+                                                    System.out.println("----------------------------------------");
+                                                }
+                                            } else {
+                                                System.out.println("Error: No hay coincidencias con los datos ingresados");
+                                            }
+                                        } else
+                                            System.out.println("Ingrese un criterio de busqueda");
+                                        break;
+                                    default:
+                                        System.out.println("Ingrese una opcion valida");
+                                        break;
+                                }
+                            }while(elegir);
+                            System.out.println("             Volviendo al menu de busqueda");
                         }
                     }
                 } else {
