@@ -8,7 +8,7 @@ import java.util.Objects;
 
 public class Contar {
 
-    public static void countAndShowcountByTitulo(List<Bug> lista, String titulo) {
+    public static void countAgndShowcountByTitulo(List<Bug> lista, String titulo) {
         List<Bug> imprimir = new LinkedList<>();
         for (Bug i : lista) {
             if (Objects.equals(i.getTitulo(), titulo)) {
