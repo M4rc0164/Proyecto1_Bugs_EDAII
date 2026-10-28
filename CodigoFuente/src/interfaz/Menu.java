@@ -2,16 +2,12 @@ package interfaz;
 
 import java.util.Scanner;
 import java.util.List;
-import java.util.ArrayList;
 
 import algoritmos.Busqueda;
 import algoritmos.TargetAux;
 import algoritmos.Ordenar;
 import datos.AlmacenBugs;
-import datos.GeneradorBugs;
 import modelo.Bug;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 
 
 public class Menu {
@@ -20,6 +16,7 @@ public class Menu {
         Scanner scan = new Scanner(System.in);
         boolean tamPersonalizado;
         int tamanio;
+        boolean repetir = true;
         System.out.println("========================================================");
         System.out.println("            SISTEMA DE ADMINISTRACION DE BUGS");
         System.out.println("========================================================");
@@ -57,301 +54,457 @@ public class Menu {
             almacenBugs.poblarInicial(200);
         }
         System.out.println();
-        System.out.println("Total de bugs activos en el sistema: ["+almacenBugs.getTotalBugs()+"]");
-        System.out.println();
-        System.out.println("                 M E N U  P R I N C I P A L");
-        System.out.println();
-        System.out.println("-----------------------------------------------------------");
-        System.out.println("\t1. Ingresar bug");
-        System.out.println("\t2. Eliminar bug");
-        System.out.println("\t3. Buscar bugs");
-        System.out.println("\t4. Listar bugs");
-        System.out.println("\t5. Contar bugs");
-        System.out.println("\t6. Salir");
-        System.out.println("Seleccione la operación que desee realizar: ");
-        int seleccion = Read.intReader();
-        System.out.println();
-        switch(seleccion) {
-            case 1 -> {
-                if(almacenBugs.getTotalBugs() < almacenBugs.getCapacidadHash()){
-                    String titulo;
-                    int prioridad;
-                    int seguridad;
-                    String equipoEncargado;
-                    String categoria;
-                    String estado;
-                    String fecha;
-                    System.out.println("-----------------INGRESO DE UN NUEVO BUG-----------------");
-                    System.out.println("- Escriba el titulo del bug:");
-                    titulo = scan.nextLine();
-                    System.out.println("- Escriba la prioridad del bug:");
-                    System.out.println("\t1 -> Baja");
-                    System.out.println("\t2 -> Media");
-                    System.out.println("\t3 -> Alta");
-                    do{
-                        prioridad = Read.intReader();
-                        if(prioridad < 1 || prioridad > 3)
-                            System.out.println("Error: Ingrese un valor dentro del rango admitido");
-                    }while(prioridad < 1 || prioridad > 3);
-                    System.out.println("- Escriba el nivel de seguridad del bug (1-5)");
-                    do{
-                        seguridad = Read.intReader();
-                        if(seguridad < 1 || seguridad > 5)
-                            System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
-                    }while(seguridad < 1 || seguridad > 5);
-                    System.out.println("- Escriba el equipo encargado de su revision");
-                    equipoEncargado = scan.nextLine();
-                    System.out.println("- Escriba la categoria del bug");
-                    categoria = scan.nextLine();
-                    System.out.println("- Escriba el estado del bug:");
-                    estado = scan.nextLine();
-                    System.out.println("Ingresa la fecha de reporte. Formato YYYY-MM-DD");
-                    fecha = Read.dateReader();
-                    almacenBugs.agregarBug(new Bug(titulo, prioridad, seguridad, equipoEncargado, categoria, estado, fecha));
-                    System.out.println("               BUG INGRESADO EXITOSAMENTE");
-                } else{
-                    System.out.println("      |   Se alcanzo la capacidad maxima de bugs   |      ");
-                    System.out.println("          Elimina bugs para poder ingresar nuevos");
+        do{
+            System.out.println("Total de bugs activos en el sistema: ["+almacenBugs.getTotalBugs()+"]");
+            System.out.println();
+            System.out.println("                 M E N U  P R I N C I P A L");
+            System.out.println();
+            System.out.println("-----------------------------------------------------------");
+            System.out.println("\t1. Ingresar bug");
+            System.out.println("\t2. Eliminar bug");
+            System.out.println("\t3. Buscar bugs");
+            System.out.println("\t4. Listar bugs");
+            System.out.println("\t5. Contar bugs");
+            System.out.println("\t6. Salir");
+            System.out.println("Seleccione la operación que desee realizar: ");
+            int seleccion = Read.intReader();
+            System.out.println();
+            switch(seleccion) {
+                case 1 -> {
+                    if(almacenBugs.getTotalBugs() < almacenBugs.getCapacidadHash()){
+                        String titulo;
+                        int prioridad;
+                        int seguridad;
+                        String equipoEncargado;
+                        String categoria;
+                        String estado;
+                        String fecha;
+                        System.out.println("-----------------INGRESO DE UN NUEVO BUG-----------------");
+                        System.out.println("- Escriba el titulo del bug:");
+                        titulo = scan.nextLine();
+                        System.out.println("- Escriba la prioridad del bug:");
+                        System.out.println("\t1 -> Baja");
+                        System.out.println("\t2 -> Media");
+                        System.out.println("\t3 -> Alta");
+                        do{
+                            prioridad = Read.intReader();
+                            if(prioridad < 1 || prioridad > 3)
+                                System.out.println("Error: Ingrese un valor dentro del rango admitido");
+                        }while(prioridad < 1 || prioridad > 3);
+                        System.out.println("- Escriba el nivel de seguridad del bug (1-5)");
+                        do{
+                            seguridad = Read.intReader();
+                            if(seguridad < 1 || seguridad > 5)
+                                System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
+                        }while(seguridad < 1 || seguridad > 5);
+                        System.out.println("- Escriba el equipo encargado de su revision");
+                        equipoEncargado = scan.nextLine();
+                        System.out.println("- Escriba la categoria del bug");
+                        categoria = scan.nextLine();
+                        System.out.println("- Escriba el estado del bug:");
+                        estado = scan.nextLine();
+                        System.out.println("Ingresa la fecha de reporte. Formato YYYY-MM-DD");
+                        fecha = Read.dateReader();
+                        if(almacenBugs.agregarBug(new Bug(titulo, prioridad, seguridad, equipoEncargado, categoria, estado, fecha)))
+                            System.out.println("               BUG INGRESADO EXITOSAMENTE");
+                        else
+                            System.out.println("      | Error: el bug ya existe dentro del almacen |");
+                    } else{
+                        System.out.println("      |   Se alcanzo la capacidad maxima de bugs   |      ");
+                        System.out.println("          Elimina bugs para poder ingresar nuevos");
+                    }
+                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                    System.out.println();
                 }
-                System.out.println();
-            }
-            case 2 -> {
-                if(almacenBugs.getTotalBugs() > 0) {
-                    String id;
-                    boolean reingresarID = false;
-                    System.out.println("------------------ELIMINACION DE UN BUG------------------");
-                    do{
-                        reingresarID = false;
-                        System.out.println("Ingrese el ID del Bug a eliminar");
-                        id = scan.nextLine();
-                        if(almacenBugs.buscarId(id) != null){
-                            System.out.println(almacenBugs.buscarId(id));
-                            System.out.println("¿Confirma la eliminacion del bug? (Y/N)");
-                            if(Read.confirmationReader()){
-                                almacenBugs.eliminarBugId(id);
-                                System.out.println("               BUG ELIMINADO EXITOSAMENTE");
+                case 2 -> {
+                    if(almacenBugs.getTotalBugs() > 0) {
+                        String id;
+                        boolean reingresarID = false;
+                        System.out.println("------------------ELIMINACION DE UN BUG------------------");
+                        do{
+                            reingresarID = false;
+                            System.out.println("Ingrese el ID del Bug a eliminar");
+                            id = scan.nextLine();
+                            if(almacenBugs.buscarId(id) != null){
+                                System.out.println(almacenBugs.buscarId(id));
+                                System.out.println("¿Confirma la eliminacion del bug? (Y/N)");
+                                if(Read.confirmationReader()){
+                                    almacenBugs.eliminarBugId(id);
+                                    System.out.println("               BUG ELIMINADO EXITOSAMENTE");
+                                }
+                                else{
+                                    System.out.println("               CANCELACION DE BUG EXITOSA");
+                                    System.out.println("¿Desea eliminar otro bug? (Y/N)");
+                                    reingresarID = Read.confirmationReader();
+                                }
                             }
                             else{
-                                System.out.println("               CANCELACION DE BUG EXITOSA");
-                                System.out.println("¿Desea eliminar otro bug? (Y/N)");
+                                System.out.println("Error: El ID ingresado no coincide con ningun bug del almacen");
+                                System.out.println("¿Desea volver a ingresar el ID? (Y/N)");
                                 reingresarID = Read.confirmationReader();
                             }
-                        }
-                        else{
-                            System.out.println("Error: El ID ingresado no coincide con ningun bug del almacen");
-                            System.out.println("¿Desea volver a ingresar el ID? (Y/N)");
-                            reingresarID = Read.confirmationReader();
-                        }
-                    } while(reingresarID);
-                } else {
-                    System.out.println("        |   El almacen se encuentra vacio   |      ");
-                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                        } while(reingresarID);
+                    } else {
+                        System.out.println("        |   El almacen se encuentra vacio   |      ");
+                        System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                    }
+                    System.out.println();
                 }
-                System.out.println();
-            }
-            case 3 -> {
-                if(almacenBugs.getTotalBugs() > 0){
-                    boolean buscar = true;
-                    do{
-                        int tipoBusqueda;
-                        System.out.println("-------------------- BUSQUEDA DE BUGS -------------------");
-                        System.out.println("\t1. Titulo");
-                        System.out.println("\t2. ID");
-                        System.out.println("\t3. Fecha de Reporte");
-                        System.out.println("\t4. Compuesto (Busqueda por multiples filtros)");
-                        System.out.println("\t5. Mostrar todo sin filtro");
-                        System.out.println("\t6. Volver al menu principal");
-                        System.out.println("Seleccione una opcion:");
-                        tipoBusqueda = Read.intReader();
-                        System.out.println();
-                        switch(tipoBusqueda) {
-                            case 1 -> {
-                                boolean reingresarID = false;
-                                Ordenar.orderByTitulo(almacenBugs.getListaBugs());
-                                String titulo;
-                                do{
-                                    reingresarID = false;
-                                    System.out.println("Ingrese el titulo del bug");
-                                    titulo = scan.nextLine();
-                                    List<Bug> bugs = Busqueda.busquedaTitulo(titulo, almacenBugs.getListaBugs());
-                                    if(!bugs.isEmpty()){
-                                        System.out.println("- Coincidencias:");
-                                        for(int i = 0; i < bugs.size(); i++){
-                                            System.out.println(bugs.get(i));
-                                            System.out.println("----------------------------------------");
+                case 3 -> {
+                    if(almacenBugs.getTotalBugs() > 0){
+                        boolean buscar = true;
+                        do{
+                            int tipoBusqueda;
+                            System.out.println("-------------------- BUSQUEDA DE BUGS -------------------");
+                            System.out.println("\t1. Titulo");
+                            System.out.println("\t2. ID");
+                            System.out.println("\t3. Fecha de Reporte");
+                            System.out.println("\t4. Compuesto (Busqueda por multiples filtros)");
+                            System.out.println("\t5. Mostrar todo sin filtro");
+                            System.out.println("\t6. Volver al menu principal");
+                            System.out.println("Seleccione una opcion:");
+                            tipoBusqueda = Read.intReader();
+                            System.out.println();
+                            switch(tipoBusqueda) {
+                                case 1 -> {
+                                    boolean reingresarID = false;
+                                    Ordenar.orderByTitulo(almacenBugs.getListaBugs());
+                                    String titulo;
+                                    do{
+                                        reingresarID = false;
+                                        System.out.println("Ingrese el titulo del bug");
+                                        titulo = scan.nextLine();
+                                        List<Bug> bugs = Busqueda.busquedaTitulo(titulo, almacenBugs.getListaBugs());
+                                        if(!bugs.isEmpty()){
+                                            System.out.println("- Coincidencias:");
+                                            for(int i = 0; i < bugs.size(); i++){
+                                                System.out.println(bugs.get(i));
+                                                System.out.println("----------------------------------------");
+                                            }
+                                        } else {
+                                            System.out.println("Error: No hay coincidencias con el titulo ingresado");
+                                            System.out.println("¿Desea volver a ingresar el titulo? (Y/N)");
+                                            reingresarID = Read.confirmationReader();
                                         }
-                                    } else {
-                                        System.out.println("Error: No hay coincidencias con el titulo ingresado");
-                                        System.out.println("¿Desea volver a ingresar el titulo? (Y/N)");
-                                        reingresarID = Read.confirmationReader();
-                                    }
-                                }while(reingresarID);
-                                System.out.println("             Volviendo al menu de busqueda");
-                            }
-                            case 2 -> {
-                                boolean reingresarID = false;
-                                String id;
-                                do{
-                                    reingresarID = false;
-                                    System.out.println("Ingrese el ID del bug:");
-                                    id = scan.nextLine();
-                                    if(almacenBugs.buscarId(id) != null){
-                                        System.out.println("Informacion del bug:");
-                                        System.out.println(almacenBugs.buscarId(id));
-                                    } else {
-                                        System.out.println("Error: El ID ingresado no coincide con ningun bug del almacen");
-                                        System.out.println("¿Desea volver a ingresar el ID? (Y/N)");
-                                        reingresarID = Read.confirmationReader();
-                                    }
-                                }while(reingresarID);
-                                System.out.println("             Volviendo al menu de busqueda");
-                            }
-                            case 3 -> {
-                                boolean reingresarID = false;
-                                String fecha;
-                                do{
-                                    reingresarID = false;
-                                    System.out.println("Ingrese la fecha de busqueda");
-                                    fecha = Read.dateReader();
-                                    TargetAux target = new TargetAux();
-                                    target.setFechaReporte(fecha);
-                                    List<Bug> bugs = Busqueda.busquedaCompuesta(target, almacenBugs.getListaBugs());
-                                    if(!bugs.isEmpty()){
-                                        System.out.println("- Coincidencias:");
-                                        for(int i = 0; i < bugs.size(); i++){
-                                            System.out.println(bugs.get(i));
-                                            System.out.println("----------------------------------------");
-                                        }
-                                    } else {
-                                        System.out.println("Error: No hay coincidencias con la fecha ingresada");
-                                        System.out.println("¿Desea volver a ingresar la fecha? (Y/N)");
-                                        reingresarID = Read.confirmationReader();
-                                    }
-                                }while(reingresarID);
-                                System.out.println("             Volviendo al menu de busqueda");
-                            }
-                            case 4 -> {
-                                boolean elegir = true;                            
-                                TargetAux target = new TargetAux();
-                                int criterio;
-                                int usados = 0;
-                                int prioridadUsado = 0;
-                                int seguridadUsado = 0;
-                                int equipoUsado = 0;
-                                int categoriaUsado = 0;
-                                int estadoUsado = 0;
-                                int fechaUsado = 0;
-                                do{
-                                    if(prioridadUsado == 0)
-                                        System.out.println("\t1 -> Prioridad");
-                                    if(seguridadUsado == 0)
-                                        System.out.println("\t2 -> Nivel de Seguridad");
-                                    if(equipoUsado == 0) 
-                                        System.out.println("\t3 -> Equipo Encargado");
-                                    if(categoriaUsado == 0)
-                                        System.out.println("\t4 -> Categoria");
-                                    if(estadoUsado == 0)
-                                        System.out.println("\t5 -> Estado");
-                                    if(fechaUsado == 0)
-                                        System.out.println("\t6 -> Fecha de reporte");
-                                    System.out.println("\t7 -> Proceder con la busqueda");
-                                    System.out.println("Seleccione los criterios de busqueda:");
-                                    criterio = Read.intReader();
-                                    switch (criterio) {
-                                        case 1:
-                                            if(prioridadUsado == 0) {
-                                                prioridadUsado ++;
-                                                usados ++;
-                                                System.out.println("Ingrese el nivel de prioridad buscado");
-                                                target.setPrioridad(Read.intReader());
-                                            }
-                                            break;
-                                        case 2: 
-                                            if(seguridadUsado == 0) {
-                                                seguridadUsado ++;
-                                                usados ++;
-                                                System.out.println("Ingrese el nivel de seguridad buscado");
-                                                target.setNivelSeguridad(Read.intReader());
-                                            }   
-                                            break;
-                                        case 3:
-                                            if(equipoUsado == 0) {
-                                                equipoUsado ++;
-                                                usados ++;
-                                                System.out.println("Ingrese el equipo buscado");
-                                                target.setEquipoEncargado(scan.nextLine());
-                                            }
-                                            break;
-                                        case 4:
-                                            if(categoriaUsado == 0) {
-                                                categoriaUsado ++;
-                                                usados ++;
-                                                System.out.println("Ingrese la categoria buscada");
-                                                target.setCategoria(scan.nextLine());
-                                            }
-                                            break;
-                                        case 5:
-                                            if(estadoUsado == 0) {
-                                                estadoUsado ++;
-                                                usados ++;
-                                                System.out.println("Ingrese el estado buscado");
-                                                target.setEstado(scan.nextLine());
-                                            }
-                                            break;
-                                        case 6:
-                                            if(fechaUsado == 0) {
-                                                fechaUsado ++;
-                                                usados ++;
-                                                System.out.println("Ingrese la fecha de reporte buscada");
-                                                target.setFechaReporte(Read.dateReader());
-                                            }
-                                            break;
-                                        case 7 :
-                                            if(usados > 0) {
-                                                elegir = false;
-                                                List<Bug> bugs = Busqueda.busquedaCompuesta(target, almacenBugs.getListaBugs());
-                                                if(!bugs.isEmpty()){
-                                                    System.out.println("- Coincidencias:");
-                                                    for(int i = 0; i < bugs.size(); i++){
-                                                        System.out.println(bugs.get(i));
-                                                        System.out.println("----------------------------------------------------");
-                                                    }
-                                                } else {
-                                                    System.out.println("Error: No hay coincidencias con los datos ingresados");
-                                                }
-                                            } else
-                                                System.out.println("Ingrese un criterio de busqueda");
-                                            break;
-                                        default:
-                                            System.out.println("Ingrese una opcion valida");
-                                            break;
-                                    }
-                                }while(elegir);
-                                System.out.println("             Volviendo al menu de busqueda");
-                            }
-                            case 5 -> {
-                                System.out.println("Bugs actuales:");
-                                for(int i = 0; i < almacenBugs.getListaBugs().size(); i++){
-                                    System.out.println(almacenBugs.getListaBugs().get(i));
-                                    System.out.println("---------------------------------------------------------");
+                                    }while(reingresarID);
+                                    System.out.println("             Volviendo al menu de busqueda");
                                 }
-                                System.out.println("             Volviendo al menu de busqueda");
-                                System.out.println();
+                                case 2 -> {
+                                    boolean reingresarID = false;
+                                    String id;
+                                    do{
+                                        reingresarID = false;
+                                        System.out.println("Ingrese el ID del bug:");
+                                        id = scan.nextLine();
+                                        if(almacenBugs.buscarId(id) != null){
+                                            System.out.println("Informacion del bug:");
+                                            System.out.println(almacenBugs.buscarId(id));
+                                        } else {
+                                            System.out.println("Error: El ID ingresado no coincide con ningun bug del almacen");
+                                            System.out.println("¿Desea volver a ingresar el ID? (Y/N)");
+                                            reingresarID = Read.confirmationReader();
+                                        }
+                                    }while(reingresarID);
+                                    System.out.println("             Volviendo al menu de busqueda");
+                                }
+                                case 3 -> {
+                                    boolean reingresarID = false;
+                                    String fecha;
+                                    do{
+                                        reingresarID = false;
+                                        System.out.println("Ingrese la fecha de busqueda");
+                                        fecha = Read.dateReader();
+                                        TargetAux target = new TargetAux();
+                                        target.setFechaReporte(fecha);
+                                        List<Bug> bugs = Busqueda.busquedaCompuesta(target, almacenBugs.getListaBugs());
+                                        if(!bugs.isEmpty()){
+                                            System.out.println("- Coincidencias:");
+                                            for(int i = 0; i < bugs.size(); i++){
+                                                System.out.println(bugs.get(i));
+                                                System.out.println("----------------------------------------");
+                                            }
+                                        } else {
+                                            System.out.println("Error: No hay coincidencias con la fecha ingresada");
+                                            System.out.println("¿Desea volver a ingresar la fecha? (Y/N)");
+                                            reingresarID = Read.confirmationReader();
+                                        }
+                                    }while(reingresarID);
+                                    System.out.println("             Volviendo al menu de busqueda");
+                                }
+                                case 4 -> {
+                                    boolean elegir = true;                            
+                                    TargetAux target = new TargetAux();
+                                    int criterio;
+                                    int usados = 0;
+                                    int prioridadUsado = 0;
+                                    int seguridadUsado = 0;
+                                    int equipoUsado = 0;
+                                    int categoriaUsado = 0;
+                                    int estadoUsado = 0;
+                                    int fechaUsado = 0;
+                                    do{
+                                        if(prioridadUsado == 0)
+                                            System.out.println("\t1 -> Prioridad");
+                                        if(seguridadUsado == 0)
+                                            System.out.println("\t2 -> Nivel de Seguridad");
+                                        if(equipoUsado == 0) 
+                                            System.out.println("\t3 -> Equipo Encargado");
+                                        if(categoriaUsado == 0)
+                                            System.out.println("\t4 -> Categoria");
+                                        if(estadoUsado == 0)
+                                            System.out.println("\t5 -> Estado");
+                                        if(fechaUsado == 0)
+                                            System.out.println("\t6 -> Fecha de reporte");
+                                        System.out.println("\t7 -> Proceder con la busqueda");
+                                        System.out.println("Seleccione los criterios de busqueda:");
+                                        criterio = Read.intReader();
+                                        switch (criterio) {
+                                            case 1:
+                                                if(prioridadUsado == 0) {
+                                                    prioridadUsado ++;
+                                                    usados ++;
+                                                    int prioridad;
+                                                    System.out.println("Ingrese la prioridad buscada");
+                                                    do{
+                                                        prioridad = Read.intReader();
+                                                        if(prioridad < 1 || prioridad > 3)
+                                                            System.out.println("Error: Ingrese un numero valido para la prioridad");
+                                                    }while(prioridad < 1 || prioridad > 3);
+                                                    target.setPrioridad(prioridad);
+                                                }
+                                                break;
+                                            case 2: 
+                                                if(seguridadUsado == 0) {
+                                                    seguridadUsado ++;
+                                                    usados ++;
+                                                    int seguridad;
+                                                    System.out.println("Ingrese el nivel de seguridad buscado");
+                                                    do{
+                                                        seguridad = Read.intReader();
+                                                        if(seguridad < 1 || seguridad > 5)
+                                                            System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
+                                                    }while(seguridad < 1 || seguridad > 5);
+                                                    target.setNivelSeguridad(seguridad);
+                                                }   
+                                                break;
+                                            case 3:
+                                                if(equipoUsado == 0) {
+                                                    equipoUsado ++;
+                                                    usados ++;
+                                                    System.out.println("Ingrese el equipo buscado");
+                                                    target.setEquipoEncargado(scan.nextLine());
+                                                }
+                                                break;
+                                            case 4:
+                                                if(categoriaUsado == 0) {
+                                                    categoriaUsado ++;
+                                                    usados ++;
+                                                    System.out.println("Ingrese la categoria buscada");
+                                                    target.setCategoria(scan.nextLine());
+                                                }
+                                                break;
+                                            case 5:
+                                                if(estadoUsado == 0) {
+                                                    estadoUsado ++;
+                                                    usados ++;
+                                                    System.out.println("Ingrese el estado buscado");
+                                                    target.setEstado(scan.nextLine());
+                                                }
+                                                break;
+                                            case 6:
+                                                if(fechaUsado == 0) {
+                                                    fechaUsado ++;
+                                                    usados ++;
+                                                    System.out.println("Ingrese la fecha de reporte buscada");
+                                                    target.setFechaReporte(Read.dateReader());
+                                                }
+                                                break;
+                                            case 7 :
+                                                if(usados > 0) {
+                                                    elegir = false;
+                                                    List<Bug> bugs = Busqueda.busquedaCompuesta(target, almacenBugs.getListaBugs());
+                                                    if(!bugs.isEmpty()){
+                                                        System.out.println("- Coincidencias:");
+                                                        for(int i = 0; i < bugs.size(); i++){
+                                                            System.out.println(bugs.get(i));
+                                                            System.out.println("----------------------------------------------------");
+                                                        }
+                                                    } else {
+                                                        System.out.println("Error: No hay coincidencias con los datos ingresados");
+                                                    }
+                                                } else
+                                                    System.out.println("Ingrese un criterio de busqueda");
+                                                break;
+                                            default:
+                                                System.out.println("Ingrese una opcion valida");
+                                                break;
+                                        }
+                                    }while(elegir);
+                                    System.out.println("             Volviendo al menu de busqueda");
+                                }
+                                case 5 -> {
+                                    System.out.println("Bugs actuales:");
+                                    for(int i = 0; i < almacenBugs.getTotalBugs(); i++){
+                                        System.out.println(almacenBugs.getListaBugs().get(i));
+                                        System.out.println("---------------------------------------------------------");
+                                    }
+                                    System.out.println("             Volviendo al menu de busqueda");
+                                    System.out.println();
+                                }
+                                case 6 -> {
+                                    buscar = false;
+                                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                                }
+                                default -> {
+                                    System.out.println("Ingrese una opcion valida");
+                                }
                             }
-                            case 6 -> {
-                                buscar = false;
-                                System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                        }while(buscar);
+                    } else {
+                        System.out.println("        |   El almacen se encuentra vacio   |      ");
+                        System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                    }
+                }
+                case 4 -> {
+                    if(almacenBugs.getTotalBugs() >0){
+                        boolean listar = true;
+                        do{
+                            int listado;
+                            System.out.println("-------------------- LISTADO DE BUGS --------------------");
+                            System.out.println("\t1. Prioridad (1-3)");
+                            System.out.println("\t2. Nivel de seguridad (1-5)");
+                            System.out.println("\t3. Titulo (Lexicografico)");
+                            System.out.println("\t4. Equipo encargado (Lexicografico)");
+                            System.out.println("\t5. Categoria (Lexicografico)");
+                            System.out.println("\t6. Fecha de reporte (Lexicografico)");
+                            System.out.println("\t7. Volver al menu principal");
+                            System.out.println("Seleccione una opcion");
+                            listado = Read.intReader();
+                            System.out.println();
+                            switch (listado) {
+                                case 1 -> {
+                                    System.out.println("           L I S T A  P O R  P R I O R I D A D");
+                                    Ordenar.showByPrioridad(almacenBugs.getListaBugs());
+                                    System.out.println();
+                                }
+                                case 2 -> {
+                                    System.out.println("           L I S T A  P O R  S E G U R I D A D");
+                                    Ordenar.showByNivelDeSeguridad(almacenBugs.getListaBugs());
+                                    System.out.println();
+                                }
+                                case 3 -> {
+                                    System.out.println("              L I S T A  P O R  T I T U L O");
+                                    Ordenar.showByTitulo(almacenBugs.getListaBugs());
+                                    System.out.println();
+                                }
+                                case 4 -> {
+                                    System.out.println("              L I S T A  P O R  E Q U I P O");
+                                    Ordenar.showByEquipoEncargado(almacenBugs.getListaBugs());
+                                    System.out.println();
+                                }
+                                case 5 -> {
+                                    System.out.println("           L I S T A  P O R  C A T E G O R I A");
+                                    Ordenar.showByCategoria(almacenBugs.getListaBugs());
+                                    System.out.println();
+                                }
+                                case 6 -> {
+                                    System.out.println("               L I S T A  P O R  F E C H A");
+                                    Ordenar.showByFechaReporte(almacenBugs.getListaBugs());
+                                    System.out.println();
+                                }
+                                case 7 -> {
+                                    listar = false;
+                                    System.out.println("               VOLVIENDO A MENU PRINCIPAL");
+                                    System.out.println();
+                                }
+                                default -> {
+                                    System.out.println("Ingrese una opcion valida");
+                                }
                             }
-                            default -> {
-                                System.out.println("Ingrese una opcion valida");
+                        }while(listar);
+                    } else {
+                        System.out.println("        |   El almacen se encuentra vacio   |      ");
+                        System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                    }
+                }
+                case 5 -> {
+                    if(almacenBugs.getTotalBugs() > 0){
+                        boolean contar = true;
+                        do{
+                            int conteo;
+                            System.out.println("--------------------- CONTEO DE BUGS --------------------");
+                            System.out.println("\t1. Conteo por Titulo");
+                            System.out.println("\t2. Conteo por Prioridad");
+                            System.out.println("\t3. Conteo por Nivel de seguridad");
+                            System.out.println("\t4. Conteo por Equipo encargado");
+                            System.out.println("\t5. Conteo por Estado");
+                            System.out.println("\t6. Conteo por Fecha");
+                            System.out.println("\t7. Volver al menu principal");
+                            conteo = Read.intReader();
+                            System.out.println();
+                            switch (conteo) {
+                                case 1 -> {
+                                    String titulo;
+                                    System.out.println("Ingrese el titulo de los bugs a contar:");
+                                    titulo = scan.nextLine();
+                                }
+                                case 2 -> {
+                                    int prioridad;
+                                    System.out.println("Ingrese la prioridad de los bugs a contar:");
+                                    do{
+                                        prioridad = Read.intReader();
+                                        if(prioridad < 1 || prioridad > 3)
+                                            System.out.println("Error: Ingrese un numero valido para la prioridad");
+                                    }while(prioridad < 1 || prioridad > 3);
+                                }
+                                case 3 -> {
+                                    int seguridad;
+                                    System.out.println("Ingrese el nivel de seguridad de los bugs a contar");
+                                    do{
+                                        seguridad = Read.intReader();
+                                        if(seguridad < 1 || seguridad > 5)
+                                            System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
+                                    }while(seguridad < 1 || seguridad > 5);
+                                }
+                                case 4 -> {
+                                    String equipoEncargado;
+                                    System.out.println("Ingrese el equipo encargado de los bugs a contar");
+                                    equipoEncargado = scan.nextLine();
+                                }
+                                case 5 -> {
+                                    String estado;
+                                    System.out.println("Ingrese el estado de los bugs a contar");
+                                    estado = scan.nextLine();
+                                }
+                                case 6 -> {
+                                    String fecha;
+                                    System.out.println("Ingrese la fecha de reporte de los bugs a contar");
+                                    fecha = Read.dateReader();
+                                }
+                                case 7 -> {
+                                    contar = false;
+                                    System.out.println("               VOLVIENDO A MENU PRINCIPAL");
+                                    System.out.println();
+                                }
+                                default -> {
+                                    System.out.println("Ingrese una opcion valida");
+                                }
                             }
-                        }
-                    }while(buscar);
-                } else {
-                    System.out.println("        |   El almacen se encuentra vacio   |      ");
-                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                        }while(contar);
+                    } else {
+                        System.out.println("        |   El almacen se encuentra vacio   |      ");
+                        System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                    }
+                }
+                case 6 -> {
+                    repetir = false;
+                    System.out.println("==================== |HASTA PRONTO | ====================");
+                }
+                default -> {
+                    System.out.println("Error: Ingrese una operacion valida");
                 }
             }
-        }
+        }while(repetir);
+        scan.close();
     } 
 }
