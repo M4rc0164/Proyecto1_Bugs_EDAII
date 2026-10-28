@@ -4,6 +4,7 @@ import java.util.Scanner;
 import java.util.List;
 
 import algoritmos.Busqueda;
+import algoritmos.Contar;
 import algoritmos.TargetAux;
 import algoritmos.Ordenar;
 import datos.AlmacenBugs;
@@ -327,7 +328,6 @@ public class Menu {
                                                         System.out.println("- Coincidencias:");
                                                         for(int i = 0; i < bugs.size(); i++){
                                                             System.out.println(bugs.get(i));
-                                                            System.out.println("----------------------------------------------------");
                                                         }
                                                     } else {
                                                         System.out.println("Error: No hay coincidencias con los datos ingresados");
@@ -346,7 +346,6 @@ public class Menu {
                                     System.out.println("Bugs actuales:");
                                     for(int i = 0; i < almacenBugs.getTotalBugs(); i++){
                                         System.out.println(almacenBugs.getListaBugs().get(i));
-                                        System.out.println("---------------------------------------------------------");
                                     }
                                     System.out.println("             Volviendo al menu de busqueda");
                                     System.out.println();
@@ -447,6 +446,7 @@ public class Menu {
                                     String titulo;
                                     System.out.println("Ingrese el titulo de los bugs a contar:");
                                     titulo = scan.nextLine();
+                                    Contar.countAndShowcountByTitulo(almacenBugs.getListaBugs(),titulo);
                                 }
                                 case 2 -> {
                                     int prioridad;
@@ -456,6 +456,7 @@ public class Menu {
                                         if(prioridad < 1 || prioridad > 3)
                                             System.out.println("Error: Ingrese un numero valido para la prioridad");
                                     }while(prioridad < 1 || prioridad > 3);
+                                    Contar.countAndShowcountByPrioridad(almacenBugs.getListaBugs(), prioridad);
                                 }
                                 case 3 -> {
                                     int seguridad;
@@ -465,21 +466,25 @@ public class Menu {
                                         if(seguridad < 1 || seguridad > 5)
                                             System.out.println("Error: Ingrese un nivel de seguridad dentro del rango");
                                     }while(seguridad < 1 || seguridad > 5);
+                                    Contar.countAndShowcountByNivelSeguridad(almacenBugs.getListaBugs(), seguridad);
                                 }
                                 case 4 -> {
                                     String equipoEncargado;
                                     System.out.println("Ingrese el equipo encargado de los bugs a contar");
                                     equipoEncargado = scan.nextLine();
+                                    Contar.countAndShowcountByEquipoEncargado(almacenBugs.getListaBugs(), equipoEncargado);
                                 }
                                 case 5 -> {
                                     String estado;
                                     System.out.println("Ingrese el estado de los bugs a contar");
                                     estado = scan.nextLine();
+                                    Contar.countAndShowcountByEstado(almacenBugs.getListaBugs(), estado);
                                 }
                                 case 6 -> {
                                     String fecha;
                                     System.out.println("Ingrese la fecha de reporte de los bugs a contar");
                                     fecha = Read.dateReader();
+                                    Contar.countAndShowcountByFecha(almacenBugs.getListaBugs(), fecha);
                                 }
                                 case 7 -> {
                                     contar = false;
@@ -490,6 +495,7 @@ public class Menu {
                                     System.out.println("Ingrese una opcion valida");
                                 }
                             }
+                            System.out.println();
                         }while(contar);
                     } else {
                         System.out.println("        |   El almacen se encuentra vacio   |      ");
@@ -498,7 +504,7 @@ public class Menu {
                 }
                 case 6 -> {
                     repetir = false;
-                    System.out.println("==================== |HASTA PRONTO | ====================");
+                    System.out.println("===================== |HASTA PRONTO | =====================");
                 }
                 default -> {
                     System.out.println("Error: Ingrese una operacion valida");
