@@ -76,7 +76,7 @@ public class Bug {
             }
         }
 
-        String renglon1 = String.format("| %-14s | %-32s | P:%-2d | Seg:%-2d | %-20s | %-15s | %-16s | %-10s |",
+        String renglon1 = String.format("| %-14s | %-32s | P:%-2d | Seg:%-2d | %-18s | %-14s | %-11s | %-10s |",
                 this.getId(),
                 lineaTitulo1,
                 this.getPrioridad(),
@@ -90,7 +90,7 @@ public class Bug {
             return renglon1;
         }
 
-        String renglon2 = String.format("| %-14s | %-32s | %-4s | %-6s | %-20s | %-12s | %-11s | %-10s |",
+        String renglon2 = String.format("| %-14s | %-32s | %-4s | %-6s | %-18s | %-14s | %-11s | %-10s |",
                 "",
                 lineaTitulo2,
                 "",

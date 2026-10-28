@@ -43,7 +43,7 @@ public class GeneradorBugs {
         final String[] bucketCategoria = {"interfaz", "lógica", "rendimiento", "seguridad", "persistencia", "indeterminada"};
         final int nCategorias = bucketCategoria.length; 
 
-        final String[] bucketEstado = {"Abierto","En revisión","Cerrado","Olvidado","Ignorado","Estado: De méxico"};
+        final String[] bucketEstado = {"Abierto","En revisión","Cerrado","Olvidado","Ignorado"};
         final int nEstados = bucketEstado.length; 
 
         int indice = rand.nextInt(nAcciones); 

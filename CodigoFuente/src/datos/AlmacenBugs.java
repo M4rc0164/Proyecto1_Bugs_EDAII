@@ -84,7 +84,7 @@ public class AlmacenBugs {
     }
 
     public Bug buscarId(String id){
-        if (id == null || !id.matches("BUG-\\d+")) {
+        if (id == null || !id.matches("BUG-(\\d{1,9}|1\\d{9})")) {
             return null; 
         }
         int indice = funcionHash(id);
