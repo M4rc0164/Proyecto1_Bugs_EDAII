@@ -66,6 +66,9 @@ public class AlmacenBugs {
     }
 
     public boolean eliminarBugId(String id) {
+        if (id == null || !id.matches("BUG-(\\d{1,9}|1\\d{9})")) {
+            return false; 
+        }
         Bug bugAEliminar = null;
         int indice = this.funcionHash(id);
         for (Bug bug : this.getTablaHash().get(indice)) {

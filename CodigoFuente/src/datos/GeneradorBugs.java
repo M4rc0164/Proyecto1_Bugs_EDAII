@@ -24,7 +24,7 @@ public class GeneradorBugs {
         };
         final int nAcciones=bucketAccion.length;
 
-        final String[] bucketComponente = {" al tratar de iniciar sesion", " en el menú","en módulo de login",
+        final String[] bucketComponente = {" al tratar de iniciar sesion", " en el menú"," en módulo de login",
             " en pasarela de pagos", " en carrito de compras", " en tabla de clientes", " en generador de PDFs", 
             " en API de autenticación", " en panel de administración"," en la database", " en el main"};
         final int nComponentes=bucketComponente.length;
