@@ -74,6 +74,7 @@ public class Menu {
                 case 1 -> {
                     if(almacenBugs.getTotalBugs() < almacenBugs.getCapacidadHash()){
                         String titulo;
+                        StringBuilder tituloTemp = new StringBuilder();
                         int prioridad;
                         int seguridad;
                         String equipoEncargado;
@@ -82,7 +83,16 @@ public class Menu {
                         String fecha;
                         System.out.println("-----------------INGRESO DE UN NUEVO BUG-----------------");
                         System.out.println("- Escriba el titulo del bug:");
-                        titulo = scan.nextLine();
+                        do{
+                            titulo = scan.nextLine();
+                            if(titulo.length() == 1 && titulo.endsWith(" "))
+                                System.out.println("Error: Ingrese un titulo valido");
+                        }while(titulo.length() == 1 && titulo.endsWith(" "));
+                        if(titulo.endsWith(" ")){
+                            tituloTemp.append(titulo);
+                            tituloTemp.deleteCharAt(titulo.length()-1);
+                            titulo = tituloTemp.toString();
+                        }
                         System.out.println("- Escriba la prioridad del bug:");
                         System.out.println("\t1 -> Baja");
                         System.out.println("\t2 -> Media");
@@ -114,7 +124,7 @@ public class Menu {
                         System.out.println("      |   Se alcanzo la capacidad maxima de bugs   |      ");
                         System.out.println("          Elimina bugs para poder ingresar nuevos");
                     }
-                    System.out.println("              VOLVIENDO A MENU PRINCIPAL");
+                    System.out.println("               VOLVIENDO A MENU PRINCIPAL");
                     System.out.println();
                 }
                 case 2 -> {
