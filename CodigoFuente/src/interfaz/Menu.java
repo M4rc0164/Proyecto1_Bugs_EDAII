@@ -378,56 +378,60 @@ public class Menu {
                         do{
                             int listado;
                             System.out.println("-------------------- LISTADO DE BUGS --------------------");
-                            System.out.println("\t1. Prioridad (1-3)");
-                            System.out.println("\t2. Nivel de seguridad (1-5)");
-                            System.out.println("\t3. Titulo (Lexicografico)");
-                            System.out.println("\t4. Equipo encargado (Lexicografico)");
-                            System.out.println("\t5. Categoria (Lexicografico)");
-                            System.out.println("\t6. Fecha de reporte (Lexicografico)");
-                            System.out.println("\t7. Volver al menu principal");
+                            System.out.println("\t1. ID (Lexicografico)"); //modificado
+                            System.out.println("\t2. Prioridad (1-3)");
+                            System.out.println("\t3. Nivel de seguridad (1-5)");
+                            System.out.println("\t4. Titulo (Lexicografico)");
+                            System.out.println("\t5. Equipo encargado (Lexicografico)");
+                            System.out.println("\t6. Categoria (Lexicografico)");
+                            System.out.println("\t7. Estado (Lexicografico)");
+                            System.out.println("\t8. Fecha de reporte (Lexicografico)");
+                            System.out.println("\t9. Volver al menu principal");
                             System.out.println("Seleccione una opcion");
                             listado = Read.intReader();
                             System.out.println();
                             switch (listado) {
                                 case 1 -> {
-                                    System.out.println("           L I S T A  P O R  P R I O R I D A D");
-                                    Ordenar.showByPrioridad(almacenBugs.getListaBugs());
-                                    System.out.println();
+                                    System.out.println("                  L I S T A  P O R  I D");
+                                    Ordenar.showByID(almacenBugs.getListaBugs());
                                 }
                                 case 2 -> {
-                                    System.out.println("           L I S T A  P O R  S E G U R I D A D");
-                                    Ordenar.showByNivelDeSeguridad(almacenBugs.getListaBugs());
-                                    System.out.println();
+                                    System.out.println("           L I S T A  P O R  P R I O R I D A D");
+                                    Ordenar.showByPrioridad(almacenBugs.getListaBugs());
                                 }
                                 case 3 -> {
-                                    System.out.println("              L I S T A  P O R  T I T U L O");
-                                    Ordenar.showByTitulo(almacenBugs.getListaBugs());
-                                    System.out.println();
+                                    System.out.println("           L I S T A  P O R  S E G U R I D A D");
+                                    Ordenar.showByNivelDeSeguridad(almacenBugs.getListaBugs());
                                 }
                                 case 4 -> {
-                                    System.out.println("              L I S T A  P O R  E Q U I P O");
-                                    Ordenar.showByEquipoEncargado(almacenBugs.getListaBugs());
-                                    System.out.println();
+                                    System.out.println("              L I S T A  P O R  T I T U L O");
+                                    Ordenar.showByTitulo(almacenBugs.getListaBugs());
                                 }
                                 case 5 -> {
-                                    System.out.println("           L I S T A  P O R  C A T E G O R I A");
-                                    Ordenar.showByCategoria(almacenBugs.getListaBugs());
-                                    System.out.println();
+                                    System.out.println("              L I S T A  P O R  E Q U I P O");
+                                    Ordenar.showByEquipoEncargado(almacenBugs.getListaBugs());
                                 }
                                 case 6 -> {
-                                    System.out.println("               L I S T A  P O R  F E C H A");
-                                    Ordenar.showByFechaReporte(almacenBugs.getListaBugs());
-                                    System.out.println();
+                                    System.out.println("           L I S T A  P O R  C A T E G O R I A");
+                                    Ordenar.showByCategoria(almacenBugs.getListaBugs());
                                 }
                                 case 7 -> {
+                                    System.out.println("              L I S T A  P O R  E S T A D O");
+                                    Ordenar.showByEstado(almacenBugs.getListaBugs());
+                                }
+                                case 8 -> {
+                                    System.out.println("               L I S T A  P O R  F E C H A");
+                                    Ordenar.showByFechaReporte(almacenBugs.getListaBugs());
+                                }
+                                case 9 -> {
                                     listar = false;
                                     System.out.println("               VOLVIENDO A MENU PRINCIPAL");
-                                    System.out.println();
                                 }
                                 default -> {
                                     System.out.println("Ingrese una opcion valida");
                                 }
                             }
+                            System.out.println();
                         }while(listar);
                     } else {
                         System.out.println("        |   El almacen se encuentra vacio   |      ");
@@ -444,9 +448,10 @@ public class Menu {
                             System.out.println("\t2. Conteo por Prioridad");
                             System.out.println("\t3. Conteo por Nivel de seguridad");
                             System.out.println("\t4. Conteo por Equipo encargado");
-                            System.out.println("\t5. Conteo por Estado");
-                            System.out.println("\t6. Conteo por Fecha");
-                            System.out.println("\t7. Volver al menu principal");
+                            System.out.println("\t5. Conteo por Categoria");
+                            System.out.println("\t6. Conteo por Estado");
+                            System.out.println("\t7. Conteo por Fecha");
+                            System.out.println("\t8. Volver al menu principal");
                             conteo = Read.intReader();
                             System.out.println();
                             switch (conteo) {
@@ -483,18 +488,24 @@ public class Menu {
                                     Contar.countAndShowcountByEquipoEncargado(almacenBugs.getListaBugs(), equipoEncargado);
                                 }
                                 case 5 -> {
+                                    String categoria;
+                                    System.out.println("Ingrese la categoria de los bugs a contar");
+                                    categoria = scan.nextLine();
+                                    Contar.countAndShowcountByCategoria(almacenBugs.getListaBugs(), categoria);
+                                }
+                                case 6 -> {
                                     String estado;
                                     System.out.println("Ingrese el estado de los bugs a contar");
                                     estado = scan.nextLine();
                                     Contar.countAndShowcountByEstado(almacenBugs.getListaBugs(), estado);
                                 }
-                                case 6 -> {
+                                case 7 -> {
                                     String fecha;
                                     System.out.println("Ingrese la fecha de reporte de los bugs a contar");
                                     fecha = Read.dateReader();
                                     Contar.countAndShowcountByFecha(almacenBugs.getListaBugs(), fecha);
                                 }
-                                case 7 -> {
+                                case 8 -> {
                                     contar = false;
                                     System.out.println("               VOLVIENDO A MENU PRINCIPAL");
                                     System.out.println();

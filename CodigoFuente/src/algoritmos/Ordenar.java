@@ -79,6 +79,10 @@ public class Ordenar {
         prequickSort(list, 3);
     }
 
+    public static void showByEstado(List<Bug>list){
+        prequickSort(list, 4);
+    }
+
     private static void prequickSort(List<Bug>list, int tipo){
         if (list == null || list.isEmpty()) return;
         List<Bug> copia= new ArrayList<>(list);
@@ -118,6 +122,7 @@ public class Ordenar {
         if(tipo==1) return porTitulo(bug);// tipo 1 por título
         if(tipo==2) return porEquipoEncargado(bug); // tipo 2 por Equipo encargado
         if(tipo==3) return porCategoria(bug); // Tipo 3 por Categoria
+        if(tipo==4) return porEstado(bug);
         return "~"; // algo simplemente para retornar algo diferente a void
     }
     private static String porTitulo(Bug bug){
@@ -128,6 +133,9 @@ public class Ordenar {
     }
     private static String porCategoria(Bug bug){
         return bug.getCategoria();
+    }
+    private  static String porEstado(Bug bug){
+        return bug.getEstado();
     }
 
 
