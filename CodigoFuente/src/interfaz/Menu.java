@@ -180,7 +180,6 @@ public class Menu {
                                             System.out.println("- Coincidencias:");
                                             for(int i = 0; i < bugs.size(); i++){
                                                 System.out.println(bugs.get(i));
-                                                System.out.println("----------------------------------------");
                                             }
                                         } else {
                                             System.out.println("Error: No hay coincidencias con el titulo ingresado");
@@ -222,7 +221,6 @@ public class Menu {
                                             System.out.println("- Coincidencias:");
                                             for(int i = 0; i < bugs.size(); i++){
                                                 System.out.println(bugs.get(i));
-                                                System.out.println("----------------------------------------");
                                             }
                                         } else {
                                             System.out.println("Error: No hay coincidencias con la fecha ingresada");
