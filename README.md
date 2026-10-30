@@ -8,14 +8,13 @@
 - González Sánchez Ayax R. 
 - Rosas Flores Marco Saúl
 
-Programa orientado a la administración, ordenamiento y recuperación de reportes de bugs en memoria principal.
+Programa orientado a la administración, ordenamiento y recuperación de reportes de bugs.
 
 
 
 ### Restricciones
-- **Persistencia en memoria:** No se emplean archivos en disco, bases de datos, excepciones ni hilos.
+- **Persistencia en memoria:** No se emplean archivos en disco, bases de datos ni hilos.
 - **Implementación manual:** Algoritmos de ordenamiento interno y búsqueda programados manualmente.
-- **Carga inicial:** Población automática de al menos 200 reportes antes de la interacción del usuario.
 
 ### Estructura del Proyecto
 - `Reporte/`: Código fuente en LaTeX (`.tex`) y reporte técnico compilado (`.pdf`).
